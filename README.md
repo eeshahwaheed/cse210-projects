@@ -1,6 +1,6 @@
 # cse210-ww-student-template
 Eeshah Waheed
-This is the starter code for students in the worldwide content version of CSE 210.
+software engineering
 
 This repository contains the starter code for many different projects. They are arranged as follows:
 
