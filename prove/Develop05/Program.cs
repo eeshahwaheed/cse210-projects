@@ -223,8 +223,4 @@ class ListingActivity : Activity
     }
 }
 
-// This program exceeds core requirements by:
-// - Providing clear instructions and prompts for each activity.
-// - Including random selection of prompts and questions to enhance user engagement.
-// - Allowing users to end the listing activity by typing 'done'.
-// - Using a spinner animation to keep the user engaged during pauses, making the experience more interactive.
+
