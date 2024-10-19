@@ -19,9 +19,9 @@ class Program
             DisplayMenu();
             string choice = Console.ReadLine();
 
-            if (choice == "5") // Adjusted for the correct exit option
+            if (choice == "5") 
             {
-                break; // Exit the program
+                break; 
             }
 
             if (int.TryParse(choice, out int index) && index >= 1 && index <= activities.Count)
@@ -44,7 +44,7 @@ class Program
         Console.WriteLine("2. Reflection Activity");
         Console.WriteLine("3. Listing Activity");
         Console.WriteLine("4. Gratitude Activity");
-        Console.WriteLine("5. Exit"); // Exit option is now correct
+        Console.WriteLine("5. Exit"); 
         Console.Write("Choose an option (1-5): ");
     }
 
@@ -67,3 +67,5 @@ class Program
         File.AppendAllText("activity_log.txt", logEntry + Environment.NewLine);
     }
 }
+
+//for core activity i added a new activity called gratitude activity
