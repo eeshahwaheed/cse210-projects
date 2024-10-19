@@ -10,7 +10,8 @@ class Program
         {
             new BreathingActivity(),
             new ReflectionActivity(),
-            new ListingActivity()
+            new ListingActivity(),
+            new GratitudeActivity() 
         };
 
         while (true)
@@ -18,7 +19,7 @@ class Program
             DisplayMenu();
             string choice = Console.ReadLine();
 
-            if (choice == "4")
+            if (choice == "5") // Adjusted for the correct exit option
             {
                 break; // Exit the program
             }
@@ -27,7 +28,7 @@ class Program
             {
                 int duration = GetPositiveDuration();
                 activities[index - 1].Start(duration);
-                LogActivity(activities[index - 1].GetName(), duration);
+                LogActivity(activities[index - 1].GetName(), duration); // Ensure GetName is implemented in Activity
             }
             else
             {
@@ -42,8 +43,9 @@ class Program
         Console.WriteLine("1. Breathing Activity");
         Console.WriteLine("2. Reflection Activity");
         Console.WriteLine("3. Listing Activity");
-        Console.WriteLine("4. Exit");
-        Console.Write("Choose an option (1-4): ");
+        Console.WriteLine("4. Gratitude Activity");
+        Console.WriteLine("5. Exit"); // Exit option is now correct
+        Console.Write("Choose an option (1-5): ");
     }
 
     private static int GetPositiveDuration()
@@ -65,4 +67,3 @@ class Program
         File.AppendAllText("activity_log.txt", logEntry + Environment.NewLine);
     }
 }
-
