@@ -2,26 +2,26 @@ using System;
 
 public class Swimming : Activity
 {
-    private int _laps; // unique attribute for Swimming
+    private int _laps; 
 
     public Swimming(DateTime date, int duration, int laps) : base(date, duration)
     {
-        _laps = laps; // unique attribute for Swimming
+        _laps = laps; 
     }
 
     public override double GetDistance()
     {
-        return (_laps * 50 / 1609.34); // convert meters to miles
+        return (_laps * 50 / 1609.34); 
     }
 
     public override double GetSpeed()
     {
-        return (GetDistance() / (_duration / 60.0)); // speed in mph
+        return (GetDistance() / (_duration / 60.0)); 
     }
 
     public override double GetPace()
     {
-        return _duration / GetDistance(); // pace in min/mile
+        return _duration / GetDistance(); 
     }
 }
 

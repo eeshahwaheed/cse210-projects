@@ -2,16 +2,16 @@ using System;
 
 public class Running : Activity
 {
-    private double _distance; // in miles
+    private double _distance; 
 
     public Running(DateTime date, int duration, double distance) : base(date, duration)
     {
-        _distance = distance; // unique attribute for Running
+        _distance = distance; 
     }
 
     public override double GetDistance() => _distance;
 
-    public override double GetSpeed() => (_distance / _duration) * 60; // mph
+    public override double GetSpeed() => (_distance / _duration) * 60;
 
-    public override double GetPace() => _duration / _distance; // min/mile
+    public override double GetPace() => _duration / _distance; 
 }
