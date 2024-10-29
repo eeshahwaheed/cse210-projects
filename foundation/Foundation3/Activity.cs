@@ -15,9 +15,11 @@ public class Activity
     public virtual double GetSpeed() => 0; // Default implementation
     public virtual double GetPace() => 0; // Default implementation
 
+
     public virtual string GetSummary()
-    {
-        return $"{_date:dd MMM yyyy} {GetType().Name} ({_duration} min): " +
-               $"Distance {GetDistance():F1}, Speed {GetSpeed():F1}, Pace: {GetPace():F2}";
-    }
+{
+    return $"{_date:dd MMM yyyy} {GetType().Name} ({_duration} min): " +
+           $"Distance {GetDistance():F1} miles, Speed {GetSpeed():F1} mph, Pace: {GetPace():F2} min per mile";
+}
+
 }
