@@ -9,10 +9,19 @@ public class Swimming : Activity
         _laps = laps; // unique attribute for Swimming
     }
 
-    public override double GetDistance() => (_laps * 50 / 1000) * 0.62; // distance in miles
+    public override double GetDistance()
+    {
+        return (_laps * 50 / 1609.34); // convert meters to miles
+    }
 
-    public override double GetSpeed() => (GetDistance() / _duration) * 60; // mph
+    public override double GetSpeed()
+    {
+        return (GetDistance() / (_duration / 60.0)); // speed in mph
+    }
 
-    public override double GetPace() => _duration / GetDistance(); // min/mile
+    public override double GetPace()
+    {
+        return _duration / GetDistance(); // pace in min/mile
+    }
 }
 
