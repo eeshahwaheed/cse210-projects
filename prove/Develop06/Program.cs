@@ -32,7 +32,8 @@ public class GoalManager
             Console.WriteLine("3. Save Goals");
             Console.WriteLine("4. Load Goals");
             Console.WriteLine("5. Record Event");
-            Console.WriteLine("6. Quit");
+            Console.WriteLine("6. Suggest Goals"); // Added option for goal suggestions
+            Console.WriteLine("7. Quit");
             Console.Write("Choose an option: ");
             string choice = Console.ReadLine();
 
@@ -54,6 +55,9 @@ public class GoalManager
                     RecordEvent();
                     break;
                 case "6":
+                    SuggestGoals(); // Call the method to suggest goals
+                    break;
+                case "7":
                     isRunning = false;
                     Console.WriteLine("Exiting the program. Goodbye!");
                     break;
@@ -196,6 +200,44 @@ public class GoalManager
             Console.WriteLine("Invalid goal selection.");
         }
     }
+
+    // New method for suggesting goals based on existing ones
+    public void SuggestGoals()
+    {
+        Console.WriteLine("Based on your past achievements, we suggest the following goals:");
+        
+        // Simple logic to suggest based on existing goals
+        if (UserHasChecklistGoals())
+        {
+            Console.WriteLine("1. Complete a new fitness challenge.");
+        }
+        if (UserHasEternalGoals())
+        {
+            Console.WriteLine("2. Start a new hobby or skill.");
+        }
+        if (UserHasSimpleGoals())
+        {
+            Console.WriteLine("3. Set a larger, long-term goal (like a marathon).");
+        }
+    }
+
+    private bool UserHasChecklistGoals()
+    {
+        // Check if the user has checklist goals
+        return _goals.Any(g => g is ChecklistGoal);
+    }
+
+    private bool UserHasEternalGoals()
+    {
+        // Check if the user has eternal goals
+        return _goals.Any(g => g is EternalGoal);
+    }
+
+    private bool UserHasSimpleGoals()
+    {
+        // Check if the user has simple goals
+        return _goals.Any(g => g is SimpleGoal);
+    }
 }
 
 // Base class for all goals
@@ -289,7 +331,7 @@ public class ChecklistGoal : Goal
 {
     private int _amountCompleted; // Number of times completed
     private int _target; // Target number of completions
-    private int _bonus;// Bonus points for completion
+    private int _bonus; // Bonus points for completion
     private int _totalPoints;
 
     public ChecklistGoal(string name, string description, int points, int target, int bonus, int amountCompleted = 0)
@@ -298,13 +340,13 @@ public class ChecklistGoal : Goal
         _amountCompleted = amountCompleted; // Initialize completed count
         _target = target; // Set target completions
         _bonus = bonus;
-        _totalPoints = points * amountCompleted; // Set bonus points
+        _totalPoints = points * amountCompleted; // Set total points based on completions
     }
 
     public override void RecordEvent()
     {
         _amountCompleted++;
-        _totalPoints += Points;  // Increment completed count
+        _totalPoints += Points;  // Increment total points
         Console.WriteLine($"Progress made! Completed {_amountCompleted}/{_target}.");
 
         // Award points for this completion
@@ -314,7 +356,7 @@ public class ChecklistGoal : Goal
         if (_amountCompleted >= _target)
         {
             Console.WriteLine($"Checklist goal completed! +{_bonus} bonus points!");
-            _totalPoints += _bonus;; // Award the bonus
+            _totalPoints += _bonus; // Award the bonus
         }
     }
 
@@ -333,5 +375,5 @@ public class ChecklistGoal : Goal
         return $"ChecklistGoal|{_shortName}|{_description}|{_totalPoints}|{_amountCompleted}|{_target}|{_bonus}";
     }
 
-     public int TotalPoints => _totalPoints;
+    public int TotalPoints => _totalPoints;
 }
