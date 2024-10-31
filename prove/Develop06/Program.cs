@@ -32,7 +32,7 @@ public class GoalManager
             Console.WriteLine("3. Save Goals");
             Console.WriteLine("4. Load Goals");
             Console.WriteLine("5. Record Event");
-            Console.WriteLine("6. Suggest Goals"); // Added option for goal suggestions
+            Console.WriteLine("6. Suggest Goals");
             Console.WriteLine("7. Quit");
             Console.Write("Choose an option: ");
             string choice = Console.ReadLine();
@@ -55,7 +55,7 @@ public class GoalManager
                     RecordEvent();
                     break;
                 case "6":
-                    SuggestGoals(); // Call the method to suggest goals
+                    SuggestGoals(); 
                     break;
                 case "7":
                     isRunning = false;
@@ -138,11 +138,11 @@ public class GoalManager
 
         if (File.Exists(filename))
         {
-            _goals.Clear(); // Clear existing goals before loading new ones
+            _goals.Clear(); 
 
             using (StreamReader reader = new StreamReader(filename))
             {
-                _score = int.Parse(reader.ReadLine()); // Load the score first
+                _score = int.Parse(reader.ReadLine()); 
 
                 string line;
                 while ((line = reader.ReadLine()) != null)
@@ -193,7 +193,9 @@ public class GoalManager
         {
             Goal goal = _goals[choice - 1];
             goal.RecordEvent();
-            _score += goal.Points;
+
+            // Add the points for the goal to the total score
+            _score += goal is ChecklistGoal checklistGoal ? checklistGoal.TotalPoints : goal.Points;
         }
         else
         {
@@ -201,42 +203,14 @@ public class GoalManager
         }
     }
 
-    // Extra creativity
-    public void SuggestGoals()
+    public void SuggestGoals() //extra creativity
     {
-        Console.WriteLine("Based on your past achievements, we suggest the following goals:");
-        
-        // Simple logic to suggest based on existing goals
-        if (UserHasChecklistGoals())
-        {
-            Console.WriteLine("1. Complete a new fitness challenge.");
-        }
-        if (UserHasEternalGoals())
-        {
-            Console.WriteLine("2. Start a new hobby or skill.");
-        }
-        if (UserHasSimpleGoals())
-        {
-            Console.WriteLine("3. Set a larger, long-term goal (like a marathon).");
-        }
-    }
-
-    private bool UserHasChecklistGoals()
-    {
-        // Check if the user has checklist goals
-        return _goals.Any(g => g is ChecklistGoal);
-    }
-
-    private bool UserHasEternalGoals()
-    {
-        // Check if the user has eternal goals
-        return _goals.Any(g => g is EternalGoal);
-    }
-
-    private bool UserHasSimpleGoals()
-    {
-        // Check if the user has simple goals
-        return _goals.Any(g => g is SimpleGoal);
+        Console.WriteLine("Here are some goal suggestions:");
+        Console.WriteLine("1. Run a marathon");
+        Console.WriteLine("2. Read 10 books this year");
+        Console.WriteLine("3. Exercise 3 times a week");
+        Console.WriteLine("4. Learn a new language");
+        Console.WriteLine("5. Complete a creative project");
     }
 }
 
@@ -329,10 +303,10 @@ public class EternalGoal : Goal
 // Checklist goal class
 public class ChecklistGoal : Goal
 {
-    private int _amountCompleted; // Number of times completed
-    private int _target; // Target number of completions
-    private int _bonus; // Bonus points for completion
-    private int _totalPoints;
+    private int _amountCompleted; 
+    private int _target; 
+    private int _bonus; 
+    private int _totalPoints; 
 
     public ChecklistGoal(string name, string description, int points, int target, int bonus, int amountCompleted = 0)
         : base(name, description, points)
@@ -340,13 +314,13 @@ public class ChecklistGoal : Goal
         _amountCompleted = amountCompleted; // Initialize completed count
         _target = target; // Set target completions
         _bonus = bonus;
-        _totalPoints = points * amountCompleted; // Set total points based on completions
+        _totalPoints = points * amountCompleted; // Calculate total points from completions
     }
 
     public override void RecordEvent()
     {
         _amountCompleted++;
-        _totalPoints += Points;  // Increment total points
+        _totalPoints += Points; // Increment completed count
         Console.WriteLine($"Progress made! Completed {_amountCompleted}/{_target}.");
 
         // Award points for this completion
@@ -356,13 +330,13 @@ public class ChecklistGoal : Goal
         if (_amountCompleted >= _target)
         {
             Console.WriteLine($"Checklist goal completed! +{_bonus} bonus points!");
-            _totalPoints += _bonus; // Award the bonus
+            _totalPoints += _bonus; // Award the bonus points to total points
         }
     }
 
     public override bool IsComplete()
     {
-        return _amountCompleted >= _target; // Return completion status
+        return _amountCompleted >= _target; 
     }
 
     public override string GetDetailsString()
@@ -375,5 +349,5 @@ public class ChecklistGoal : Goal
         return $"ChecklistGoal|{_shortName}|{_description}|{_totalPoints}|{_amountCompleted}|{_target}|{_bonus}";
     }
 
-    public int TotalPoints => _totalPoints;
+    public int TotalPoints => _totalPoints; 
 }
