@@ -201,7 +201,7 @@ public class GoalManager
         }
     }
 
-    // New method for suggesting goals based on existing ones
+    // Extra creativity
     public void SuggestGoals()
     {
         Console.WriteLine("Based on your past achievements, we suggest the following goals:");
